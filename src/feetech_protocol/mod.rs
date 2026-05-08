@@ -8,9 +8,7 @@ use crate::Result;
 
 #[derive(Debug)]
 /// Raw Feetech (FT-SCS) communication messages controller.
-///
-/// Feetech servos use a single protocol version, so unlike the Dynamixel
-/// handler this one has no v1/v2 split.
+/// Feetech servos use a single protocol version
 pub struct FeetechProtocolHandler {
     protocol: FtScs,
     post_delay: Option<Duration>,

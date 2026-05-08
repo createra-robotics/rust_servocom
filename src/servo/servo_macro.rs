@@ -266,7 +266,7 @@ macro_rules! generate_addr_read_write {
                     id: u8,
                     addr: u8,
                     length: u8,
-                ) -> PyResult<PyObject> {
+                ) -> PyResult<Py<PyAny>> {
 
 
                     let x = self.0.lock().unwrap().read_raw_data(id, addr, length)
@@ -295,7 +295,7 @@ macro_rules! generate_addr_read_write {
                     ids: &Bound<'_, pyo3::types::PyList>,
                     addr: u8,
                     length: u8,
-                ) -> PyResult<PyObject> {
+                ) -> PyResult<Py<PyAny>> {
                     let ids = ids.extract::<Vec<u8>>()?;
 
                     let x = self.0.lock().unwrap().sync_read_raw_data(&ids, addr, length)
@@ -308,6 +308,7 @@ macro_rules! generate_addr_read_write {
                 pub fn sync_write_raw_data(
                     &self,
                     ids: &Bound<'_, pyo3::types::PyList>,
+                    addr: u8,
                     data: &Bound<'_, pyo3::types::PyList>,
                 ) -> PyResult<()> {
                     let ids = ids.extract::<Vec<u8>>()?;
@@ -433,7 +434,7 @@ macro_rules! generate_reg_read {
                     &self,
                     py: Python,
                     ids: &Bound<'_, pyo3::types::PyList>,
-                ) -> PyResult<PyObject> {
+                ) -> PyResult<Py<PyAny>> {
                     let ids = ids.extract::<Vec<u8>>()?;
 
                     let x = self.0.lock().unwrap().[<sync_read_ $reg_name>](&ids)
@@ -453,7 +454,7 @@ macro_rules! generate_reg_read {
                     &self,
                     py: Python,
                     id: u8,
-                ) -> PyResult<PyObject> {
+                ) -> PyResult<Py<PyAny>> {
 
                     let x = self.0.lock().unwrap().[<read_ $reg_name>](id)
                         .map_err(|e| pyo3::exceptions::PyRuntimeError::new_err(e.to_string()))?;
@@ -589,7 +590,7 @@ macro_rules! generate_reg_read {
                     &self,
                     py: Python,
                     ids: &Bound<'_, pyo3::types::PyList>,
-                ) -> PyResult<PyObject> {
+                ) -> PyResult<Py<PyAny>> {
                     let ids = ids.extract::<Vec<u8>>()?;
 
                     let x = self.0.lock().unwrap().[<sync_read_raw_ $reg_name>](&ids)
@@ -603,7 +604,7 @@ macro_rules! generate_reg_read {
                     &self,
                     py: Python,
                     ids: Bound<'_, pyo3::types::PyList>,
-                ) -> PyResult<PyObject> {
+                ) -> PyResult<Py<PyAny>> {
                     let ids = ids.extract::<Vec<u8>>()?;
 
                     let x = self.0.lock().unwrap().[<sync_read_ $reg_name>](&ids)
@@ -617,7 +618,7 @@ macro_rules! generate_reg_read {
                     &self,
                     py: Python,
                     id: u8,
-                ) -> PyResult<PyObject> {
+                ) -> PyResult<Py<PyAny>> {
 
 
                     let x = self.0.lock().unwrap().[<read_raw_ $reg_name>](id)
@@ -631,7 +632,7 @@ macro_rules! generate_reg_read {
                     &self,
                     py: Python,
                     id: u8,
-                ) -> PyResult<PyObject> {
+                ) -> PyResult<Py<PyAny>> {
 
 
                     let x = self.0.lock().unwrap().[<read_ $reg_name>](id)
