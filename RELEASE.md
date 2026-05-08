@@ -34,7 +34,18 @@ cargo publish --dry-run         # full validation
 cargo package --list            # see exactly which files go in the .crate archive
 ```
 
-4. Commit to GitHub
+4. Configure the `CARGO_REGISTRY_TOKEN` repository secret
+
+The `Publish` workflow authenticates to crates.io using a repository secret named `CARGO_REGISTRY_TOKEN`. If it has not yet been set (or has expired), add it before tagging a release:
+
+**Settings → Secrets and variables → Actions → New repository secret**
+
+- **Name:** `CARGO_REGISTRY_TOKEN` (must match `secrets.CARGO_REGISTRY_TOKEN` in `publish.yml`)
+- **Value:** an API token generated at <https://crates.io/settings/tokens> with the `publish-update` scope (and `publish-new` for the first release)
+
+Store the value as a **Secret**, not a **Variable** — variables are exposed in plain text in workflow logs. See [§ Rust](#rust) below for the full token-generation procedure.
+
+5. Commit to GitHub
 
 ```bash
 git commit -am "Release 1.0.1"
