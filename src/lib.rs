@@ -41,16 +41,16 @@
 //! use servocom::{DynamixelProtocolHandler, servo::dynamixel::mx};
 //! use std::time::Duration;
 //!
-//! let mut serial_port = serialport::new("/dev/ttyACM0", 1_000_000)
+//! let mut port = serialport::new("/dev/ttyACM0", 1_000_000)
 //!     .timeout(Duration::from_millis(10))
 //!     .open()
 //!     .expect("Failed to open port");
 //!
 //! let dph = DynamixelProtocolHandler::v1();
 //!
-//! let raw_pos: i16 = mx::read_raw_present_position(&dph, serial_port.as_mut(), 11).expect("Communication error");
+//! let raw_pos: i16 = mx::read_raw_present_position(&dph, port.as_mut(), 11).expect("Communication error");
 //! let pos: f64 =
-//!     mx::read_present_position(&dph, serial_port.as_mut(), 11).expect("Communication error");
+//!     mx::read_present_position(&dph, port.as_mut(), 11).expect("Communication error");
 //! println!("Motor 11 present position: {:?}rads (raw: {:?})", pos, raw_pos);
 //! ```
 //!
@@ -59,13 +59,12 @@
 //! use servocom::servo::feetech::sts3215::Sts3215Controller;
 //! use std::time::Duration;
 //!
-//! let serial_port = serialport::new("/dev/ttyUSB0", 1_000_000)
+//! let port = serialport::new("/dev/ttyUSB0", 1_000_000)
 //!     .timeout(Duration::from_millis(1000))
 //!     .open()
 //!     .unwrap();
 //!
-//! let mut c = Sts3215Controller::new()
-//!         .with_serial_port(serial_port);
+//! let mut c = Sts3215Controller::new().with_serial_port(port);
 //!
 //! let pos = c.sync_read_present_position(&vec![1, 2]).unwrap();
 //! println!("Motors present position: {:?}", pos);

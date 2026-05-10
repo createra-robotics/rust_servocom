@@ -1,10 +1,12 @@
 use crate::generate_servo;
 use crate::servo::conversion::Conversion;
 use crate::servo::dynamixel::mx::AnglePosition;
-use crate::servo::feetech::sts3215::{Offset, Velocity};
+use crate::servo::feetech::conversion::{Offset, Velocity};
 
 generate_servo!(
     SM40BL, feetech,
+    reg: (firmware_main_version, r, 0, u8, None),
+    reg: (firmware_sub_version, r, 1, u8, None),
     reg: (model, r, 3, u16, None),
     reg: (id, rw, 5, u8, None),
     reg: (baudrate, rw, 6, u8, None),

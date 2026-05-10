@@ -8,24 +8,22 @@
 
 - [1 Servo Communication Protocol](#1-servo-communication-protocol)
 - [2 Servo Memory Table Definition](#2-servo-memory-table-definition)
-    - [2.1 Version Information](#21-version-information)
-    - [2.2 EEPROM Configuration](#22-eeprom-configuration)
-    - [2.3 SRAM Control](#23-sram-control)
-    - [2.4 SRAM Feedback](#24-sram-feedback)
-    - [2.5 Factory Parameters](#25-factory-parameters)
+  - [2.1 Version Information](#21-version-information)
+  - [2.2 EEPROM Configuration](#22-eeprom-configuration)
+  - [2.3 SRAM Control](#23-sram-control)
+  - [2.4 SRAM Feedback](#24-sram-feedback)
+  - [2.5 Factory Parameters](#25-factory-parameters)
 - [3 Special Byte Explanations](#3-special-byte-explanations)
-    - [3.1 Servo Phase](#31-servo-phase)
-    - [3.2 Servo Status](#32-servo-status)
-    - [3.3 Unloading Conditions](#33-unloading-conditions)
-    - [3.4 LED Alarm Conditions](#34-led-alarm-conditions)
+  - [3.1 Servo Phase](#31-servo-phase)
+  - [3.2 Servo Status](#32-servo-status)
+  - [3.3 Unloading Conditions](#33-unloading-conditions)
+  - [3.4 LED Alarm Conditions](#34-led-alarm-conditions)
 
 ---
 
 ## 1 Servo Communication Protocol
 
-The servo uses the FT-SCS custom protocol. The factory default serial port configuration for SMS servos is a baud rate of 115200 with RS485 bus communication. The baud rate can be configured in the range of 38400–1Mbps, and the default communication address (station ID) is 1.
-
-**FT-SCS Custom Protocol**
+The servo uses the FT-SCS custom protocol. The factory default serial port configuration for SMS servos is a baud rate of `115200` with RS485 bus communication. The baud rate can be configured in the range of `38400` ~ `1Mbps`, and the default communication address (station ID) is 1.
 
 ---
 
@@ -195,24 +193,22 @@ If multiple bits are set simultaneously, the LED alarm condition value is the su
 
 - [1 Servo Communication Protocol](#1-servo-communication-protocol-1)
 - [2 Servo Memory Table Definition](#2-servo-memory-table-definition-1)
-    - [2.1 Version Information](#21-version-information-1)
-    - [2.2 EPROM Configuration](#22-eprom-configuration)
-    - [2.3 SRAM Control](#23-sram-control-1)
-    - [2.4 SRAM Feedback](#24-sram-feedback-1)
-    - [2.5 Factory Parameters](#25-factory-parameters-1)
+  - [2.1 Version Information](#21-version-information-1)
+  - [2.2 EPROM Configuration](#22-eprom-configuration)
+  - [2.3 SRAM Control](#23-sram-control-1)
+  - [2.4 SRAM Feedback](#24-sram-feedback-1)
+  - [2.5 Factory Parameters](#25-factory-parameters-1)
 - [3 Special Byte Definitions](#3-special-byte-definitions)
-    - [3.1 Servo Phase](#31-servo-phase-1)
-    - [3.2 Servo Status](#32-servo-status-1)
-    - [3.3 Unload Conditions](#33-unload-conditions)
-    - [3.4 LED Alarm Conditions](#34-led-alarm-conditions-1)
+  - [3.1 Servo Phase](#31-servo-phase-1)
+  - [3.2 Servo Status](#32-servo-status-1)
+  - [3.3 Unload Conditions](#33-unload-conditions)
+  - [3.4 LED Alarm Conditions](#34-led-alarm-conditions-1)
 
 ---
 
 ## 1 Servo Communication Protocol
 
-The servo uses the FT-SCS custom protocol. The factory default serial port configuration for STS servos is a default baud rate of 1M, using TTL single-bus communication with 8 data bits, no parity, and 1 stop bit. The baud rate is configurable in the range of 38400 ~ 1Mbps, and the default communication address (station number) is 1.
-
-**FT-SCS Custom Protocol**
+The servo uses the FT-SCS custom protocol. The factory default serial port configuration for STS servos is a default baud rate of `1000000`, using TTL single-bus communication with 8 data bits, no parity, and 1 stop bit. The baud rate is configurable in the range of `38400` ~ `1Mbps`, and the default communication address (station number) is 1.
 
 ---
 
