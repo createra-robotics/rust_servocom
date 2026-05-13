@@ -351,14 +351,42 @@ macro_rules! generate_addr_read_write {
 #[macro_export]
 macro_rules! generate_reg_access {
     ($servo_name:ident, $handler:path, $reg_name:ident, r, $reg_addr:expr, $reg_type:ty, $conv:ident) => {
-        $crate::generate_reg_read!($servo_name, $handler, $reg_name, $reg_addr, $reg_type, $conv);
+        $crate::generate_reg_read!(
+            $servo_name,
+            $handler,
+            $reg_name,
+            $reg_addr,
+            $reg_type,
+            $conv
+        );
     };
     ($servo_name:ident, $handler:path, $reg_name:ident, w, $reg_addr:expr, $reg_type:ty, $conv:ident) => {
-        $crate::generate_reg_write!($servo_name, $handler, $reg_name, $reg_addr, $reg_type, $conv);
+        $crate::generate_reg_write!(
+            $servo_name,
+            $handler,
+            $reg_name,
+            $reg_addr,
+            $reg_type,
+            $conv
+        );
     };
     ($servo_name:ident, $handler:path, $reg_name:ident, rw, $reg_addr:expr, $reg_type:ty, $conv:ident) => {
-        $crate::generate_reg_read!($servo_name, $handler, $reg_name, $reg_addr, $reg_type, $conv);
-        $crate::generate_reg_write!($servo_name, $handler, $reg_name, $reg_addr, $reg_type, $conv);
+        $crate::generate_reg_read!(
+            $servo_name,
+            $handler,
+            $reg_name,
+            $reg_addr,
+            $reg_type,
+            $conv
+        );
+        $crate::generate_reg_write!(
+            $servo_name,
+            $handler,
+            $reg_name,
+            $reg_addr,
+            $reg_type,
+            $conv
+        );
     };
 }
 #[macro_export]
@@ -763,7 +791,7 @@ macro_rules! generate_reg_write {
                 id: u8,
                 val: <$conv as Conversion>::UsiType,
             ) -> $crate::Result<()> {
-                let val = $conv::to_raw(val);
+                let val = $conv::to_raw(val)?;
                 [<write_raw_ $reg_name>](io, serial_port, id, val)
             }
 
@@ -794,7 +822,7 @@ macro_rules! generate_reg_write {
                 let values = values
                     .iter()
                     .map(|&v| $conv::to_raw(v))
-                    .collect::<Vec<_>>();
+                    .collect::<std::result::Result<Vec<_>, _>>()?;
                 [<sync_write_raw_ $reg_name>](io, serial_port, ids, &values)
             }
 

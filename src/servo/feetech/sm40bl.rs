@@ -1,7 +1,7 @@
 use crate::generate_servo;
 use crate::servo::conversion::Conversion;
 use crate::servo::dynamixel::mx::AnglePosition;
-use crate::servo::feetech::conversion::{Offset, Velocity};
+use crate::servo::feetech::conversion::{Offset, Position, SignedLoad, SignedSpeed, Velocity};
 
 generate_servo!(
     SM40BL, feetech,
@@ -12,8 +12,8 @@ generate_servo!(
     reg: (baudrate, rw, 6, u8, None),
     reg: (return_delay_time, rw, 7, u8, None),
     reg: (response_status_level, rw, 8, u8, None),
-    reg: (min_angle_limit, rw, 9, i16, AnglePosition),
-    reg: (max_angle_limit, rw, 11, i16, AnglePosition),
+    reg: (min_angle_limit, rw, 9, u16, Offset),
+    reg: (max_angle_limit, rw, 11, u16, Offset),
     reg: (max_temperature_limit, rw, 13, u8, None),
     reg: (max_voltage_limit, rw, 14, u8, None),
     reg: (min_voltage_limit, rw, 15, u8, None),
@@ -44,9 +44,9 @@ generate_servo!(
     reg: (goal_speed, rw, 46, u16, Velocity),
     reg: (torque_limit, rw, 48, u16, None),
     reg: (lock, rw, 55, u8, bool),
-    reg: (present_position, r, 56, i16, AnglePosition),
-    reg: (present_speed, r, 58, u16, Velocity),
-    reg: (present_load, r, 60, u16, None),
+    reg: (present_position, r, 56, u16, Position),
+    reg: (present_speed, r, 58, u16, SignedSpeed),
+    reg: (present_load, r, 60, u16, SignedLoad),
     reg: (present_voltage, r, 62, u8, None),
     reg: (present_temperature, r, 63, u8, None),
     reg: (status, r, 65, u8, None),

@@ -83,8 +83,8 @@ impl Conversion for AnglePosition {
         (2.0 * PI * (raw as f64) / 4096.0) - PI
     }
 
-    fn to_raw(value: f64) -> i16 {
-        (4096.0 * (PI + value) / (2.0 * PI)) as i16
+    fn to_raw(value: f64) -> std::result::Result<i16, Box<dyn std::error::Error>> {
+        Ok((4096.0 * (PI + value) / (2.0 * PI)) as i16)
     }
 }
 
@@ -177,9 +177,9 @@ mod tests {
 
     #[test]
     fn position_conversions() {
-        assert_eq!(AnglePosition::to_raw(0.0), 2048);
-        assert_eq!(AnglePosition::to_raw(-PI / 2.0), 1024);
-        assert_eq!(AnglePosition::to_raw(PI / 2.0), 3072);
+        assert_eq!(AnglePosition::to_raw(0.0).unwrap(), 2048);
+        assert_eq!(AnglePosition::to_raw(-PI / 2.0).unwrap(), 1024);
+        assert_eq!(AnglePosition::to_raw(PI / 2.0).unwrap(), 3072);
         assert_eq!(AnglePosition::from_raw(2048), 0.0);
     }
 

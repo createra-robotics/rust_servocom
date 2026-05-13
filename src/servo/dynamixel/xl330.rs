@@ -89,8 +89,8 @@ impl Conversion for AnglePosition {
         (2.0 * PI * (raw as f64) / 4096.0) - PI
     }
 
-    fn to_raw(value: f64) -> i32 {
-        (4096.0 * (PI + value) / (2.0 * PI)) as i32
+    fn to_raw(value: f64) -> std::result::Result<i32, Box<dyn std::error::Error>> {
+        Ok((4096.0 * (PI + value) / (2.0 * PI)) as i32)
     }
 }
 

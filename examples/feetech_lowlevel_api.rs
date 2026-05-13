@@ -20,7 +20,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     while start_overall.elapsed() < duration {
         let start_time = std::time::Instant::now();
 
-        let _x: i16 = sts3215::read_raw_present_position(&io, serial_port.as_mut(), ids[0])?;
+        let _x: u16 = sts3215::read_raw_present_position(&io, serial_port.as_mut(), ids[0])?;
         let x = sts3215::sync_read_present_position(&io, serial_port.as_mut(), &ids)?;
         println!("present pos: {:?}", x);
 

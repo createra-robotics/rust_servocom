@@ -64,8 +64,8 @@ impl Conversion for Velocity {
         }
     }
 
-    fn to_raw(value: f64) -> u16 {
-        ((value / (300.0_f64.to_radians() / 1024.0)) as u16).to_be()
+    fn to_raw(value: f64) -> std::result::Result<u16, Box<dyn std::error::Error>> {
+        Ok(((value / (300.0_f64.to_radians() / 1024.0)) as u16).to_be())
     }
 }
 
@@ -79,9 +79,9 @@ impl Conversion for AnglePosition {
         300.0_f64.to_radians() * (((raw.to_be() & 0x3ff) - 511) as f64) / 1024.0
     }
 
-    fn to_raw(value: f64) -> i16 {
+    fn to_raw(value: f64) -> std::result::Result<i16, Box<dyn std::error::Error>> {
         let a = (1024.0 * (value) / (300.0_f64.to_radians()) + 511.0) as i16;
-        a.to_be()
+        Ok(a.to_be())
     }
 }
 
@@ -95,8 +95,8 @@ impl Conversion for BigEndian_u16 {
         raw.to_be()
     }
 
-    fn to_raw(value: u16) -> u16 {
-        value.to_be()
+    fn to_raw(value: u16) -> std::result::Result<u16, Box<dyn std::error::Error>> {
+        Ok(value.to_be())
     }
 }
 
@@ -114,8 +114,8 @@ impl Conversion for BigEndian_i16 {
         }
     }
 
-    fn to_raw(value: i16) -> u16 {
-        value.to_be() as u16
+    fn to_raw(value: i16) -> std::result::Result<u16, Box<dyn std::error::Error>> {
+        Ok(value.to_be() as u16)
     }
 }
 
@@ -128,7 +128,7 @@ impl Conversion for TorqueLimit {
         raw.to_be() as f64 * 0.1
     }
 
-    fn to_raw(value: f64) -> u16 {
-        (value.clamp(0.0, 100.0) as u16 * 10).to_be()
+    fn to_raw(value: f64) -> std::result::Result<u16, Box<dyn std::error::Error>> {
+        Ok((value.clamp(0.0, 100.0) as u16 * 10).to_be())
     }
 }

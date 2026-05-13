@@ -80,8 +80,8 @@ impl Conversion for AnglePosition {
         (2.0 * MAX_DEFLECTION * (raw as f64) / 1024.0) - MAX_DEFLECTION
     }
 
-    fn to_raw(value: f64) -> u16 {
-        (1024.0 * (MAX_DEFLECTION + value) / (2.0 * MAX_DEFLECTION)) as u16
+    fn to_raw(value: f64) -> std::result::Result<u16, Box<dyn std::error::Error>> {
+        Ok((1024.0 * (MAX_DEFLECTION + value) / (2.0 * MAX_DEFLECTION)) as u16)
     }
 }
 
@@ -182,9 +182,9 @@ mod tests {
 
     #[test]
     fn position_conversions() {
-        assert_eq!(AnglePosition::to_raw(0.0), 512);
-        assert_eq!(AnglePosition::to_raw(-150f64.to_radians()), 0);
-        assert_eq!(AnglePosition::to_raw(149.9f64.to_radians()), 1023); // 150 is invalid as per spec.
+        assert_eq!(AnglePosition::to_raw(0.0).unwrap(), 512);
+        assert_eq!(AnglePosition::to_raw(-150f64.to_radians()).unwrap(), 0);
+        assert_eq!(AnglePosition::to_raw(149.9f64.to_radians()).unwrap(), 1023); // 150 is invalid as per spec.
         assert_eq!(AnglePosition::from_raw(512), 0.0);
     }
 
